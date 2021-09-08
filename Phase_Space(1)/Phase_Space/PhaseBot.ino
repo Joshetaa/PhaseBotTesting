@@ -78,19 +78,23 @@ void stopMove()
    tune each motor's angular speed
    to approach the correct phi
 */
-void approach(const Gait &g)
+void leg_move(LSS leg)
 {
-    int32_t pos = LSSs[1].getPosition()/10; 
-    Serial.println(pos%360);
-    if ((pos%360) <= 60 || (pos%360) >= 300)
+  int32_t pos = leg.getPosition()/10; 
+   if ((pos%360) <= 60 || (pos%360) >= 300)
     {
-      LSSs[1].wheelRPM(OMEGA/3);
+      leg.wheelRPM(OMEGA/3);
     }
     else 
     {      
-      LSSs[1].wheelRPM(OMEGA);
+      leg.wheelRPM(OMEGA);
     }
+}
 
+void approach(const Gait &g)
+{
+    leg_move(LSSs[0]);
+    leg_move(LSSs[1]);
 }
 
 /*long int beulher_clock(unsigned long long overlap)
