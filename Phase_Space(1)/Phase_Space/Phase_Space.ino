@@ -14,6 +14,7 @@ int OMEGA = 15; // in RPM
 double PERIOD = 3600.0 / OMEGA;
 Gait gait = bounding;
 char name_t;
+int param = 0.01; 
 
 unsigned long long start = 0;   // track time
 unsigned long long elapsed = 0;    // track time
@@ -30,35 +31,18 @@ Position pos;
 
 void setup()
 {
-//    zero();
-//    LSS_Setup(gait);     // move legs into position
-//    startMove();         // begin rotation
+    zero();
+    LSS_Setup(gait);     // move legs into position
+    startMove();         // begin rotation
 //    LCD_gait(lcd, gait); // print gait to screen
     LSS_Init();
-//    RemoteSetup();       // setup serial connection
- Serial.begin(115200);
+//    RemoteSetup();       // setup seria l connection
+// Serial.begin(115200);
 }
 
 void loop()
 {
-//    delay(100);
-//    gait = RemoteRead(raw, pos, move_sign);     // read in updates from remote
-//    if((name_t != gait.name[0]) && move_sign == 0)
-//    {
-//        LSS_Setup(gait);
-//        name_t = gait.name[0];
-//    }
-//    LCD_gait(lcd, gait);             // show gait on screen
-    
-//    if(move_sign == 0)
-//    {
-//        stopMove();                      // stop moving
-//    }
-//    else
-//    {
-        approach(gait);                  // read in updates from remote
- //   }
-
-    //  Serial.println(analogRead(0));
-    // log angular error here.
+sync_2(LSSs[0], LSSs[1], param); 
+sync_4(LSSs[0], LSSs[1], LSSs[2], LSSs[3], param);
+  // approach(gait);
 }

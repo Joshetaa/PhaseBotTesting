@@ -78,23 +78,61 @@ void stopMove()
    tune each motor's angular speed
    to approach the correct phi
 */
-void leg_move(LSS leg)
+int leg_move(LSS leg)
 {
   int32_t pos = leg.getPosition()/10; 
+   int omega; 
    if ((pos%360) <= 60 || (pos%360) >= 300)
     {
-      leg.wheelRPM(OMEGA/3);
+      omega = OMEGA/3;
+      
     }
     else 
-    {      
-      leg.wheelRPM(OMEGA);
+    { 
+      omega = OMEGA;     
     }
+
+    leg.wheelRPM(omega);
+    return omega; 
 }
 
 void approach(const Gait &g)
 {
     leg_move(LSSs[0]);
     leg_move(LSSs[1]);
+}
+
+void sync_2(LSS leg1, LSS leg2, int param)
+{
+    int omega_1 = leg_move(leg1); 
+
+    int32_t pos_1 = leg1.getPosition()/10;
+    int32_t pos_2 = leg2.getPosition()/10;
+
+    int32_t dPhase = pos_2-pos_1; 
+
+    leg2.wheelRPM(omega_1 + param*dPhase); 
+    
+}
+
+void sync_4(LSS leg1, LSS leg2, LSS leg3, LSS leg4, int param)
+{
+    int omega_1 = leg_move(leg1); 
+
+    int32_t pos_1 = leg1.getPosition()/10;
+    int32_t pos_2 = leg2.getPosition()/10;
+    int32_t pos_3 = leg3.getPosition()/10;
+    int32_t pos_4 = leg4.getPosition()/10;
+
+    int32_t dPhase2 = pos_2-pos_1; 
+    int32_t dPhase3 = pos_3-pos_1; 
+    int32_t dPhase4 = pos_4-pos_1; 
+
+    leg2.wheelRPM(omega_1 + param*dPhase2); 
+    leg3.wheelRPM(omega_1 + param*dPhase3); 
+    leg4.wheelRPM(omega_1 + param*dPhase4); 
+
+    
 }
 
 /*long int beulher_clock(unsigned long long overlap)

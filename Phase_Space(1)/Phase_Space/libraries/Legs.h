@@ -2,9 +2,9 @@
 
 // NOTE: these servo IDs are specific to Elijah's Robot
 // may need to be changed at a later date.
-#define R_LEAD_LEG_ID 241
-#define L_LEAD_LEG_ID 101
-#define L_HIND_LEG_ID 2
+#define R_LEAD_LEG_ID 1
+#define L_LEAD_LEG_ID 2
+#define L_HIND_LEG_ID 4
 #define R_HIND_LEG_ID 3
 // LSS Documentation
 // https://www.robotshop.com/info/wiki/lynxmotion/view/lynxmotion-smart-servo/lss-communication-protocol/#HIdentificationNumber28ID29
